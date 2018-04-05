@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+</head>
+
+<body>
+
+    <div><input type="email" id="reemail" value="test@qq.com" /><input type="text" id="repassword" value="abc123" /><input type="button" id="register" value="register" /></div>
+    <div><input type="email" id="lgemail" value="test@qq.com" /><input type="text" id="lgpassword" value="abc123" /><input type="button" id="login" value="login" /></div>
+    <div><input type="button" id="loginOut" value="loginOut" /></div>
+    <div><input type="button" id="animes" value="get all animes" /></div>
+    <div><input type="number" id="getID" value="1" /><input type="button" id="anime" value="get one anime" /></div>
+    <div><input type="text" id="postName" value="" /><input type="number" id="postNumber" value="" /><input type="button" id="postanime" value="add anime" /></div>
+    <div><input type="number" id="putID" value="1" /><input type="text" id="putName" value="" /><input type="number" id="putNumber" value="" /><input type="button" id="putanime" value="updata anime" /></div>
+    <div><input type="text" id="delID" value="1" /><input type="button" id="delanime" value="delete anime" /></div>
+    <!-- jQuery -->
+    <script src="jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#register").click(function () {
+                console.log("register");
+                $.ajax({
+                    url: "/api/account/register",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"Email": "' + $("#reemail").val() + '","password": "' + $("#repassword").val() + '","ConfirmPassword": "' + $("#repassword").val() + '"}',
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#login").click(function () {
+                console.log("login");
+                $.ajax({
+                    url: "/api/account/login",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"Email": "' + $("#lgemail").val() + '","password": "' + $("#lgpassword").val() + '","remeberme": false}',
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#loginOut").click(function () {
+                console.log("loginOut");
+                $.ajax({
+                    url: "/api/account/loginOut",
+                    type: "GET",
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#animes").click(function () {
+                $.ajax({
+                    url: "/api/Animes",
+                    type: "GET",
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#anime").click(function () {
+                $.ajax({
+                    url: "/api/animes/" + $("#getID").val(),
+                    type: "GET",
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#postanime").click(function () {
+                $.ajax({
+                    url: "/api/animes",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"Name": "' + $("#postName").val() + '","Number": "' + $("#postNumber").val() + '","DateTime": "2011-08-01T00:00:00","IndexShow":false}',
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#putanime").click(function () {
+                $.ajax({
+                    url: "/api/animes/" + $("#putID").val(),
+                    type: "PUT",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"ID":' + $("#putID").val()+',"Name": "' + $("#putName").val() + '","Number": "' + $("#putNumber").val() + '","DateTime": "2011-08-01T00:00:00","IndexShow":false}',
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+
+            $("#delanime").click(function () {
+                $.ajax({
+                    url: "/api/animes/" + $("#delID").val(),
+                    type: "Delete",
+                    success: function () {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
